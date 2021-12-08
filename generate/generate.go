@@ -4,11 +4,28 @@ import (
 	"crypto/rand"
 	"log"
 	"math/big"
+	"sort"
 )
 
 type Lotto []int64
 
 type LottoPack []Lotto
+
+type ByAsc struct {
+	Lotto
+}
+
+func (s ByAsc) Len() int {
+	return len(s.Lotto)
+}
+
+func (s ByAsc) Swap(i, j int) {
+	s.Lotto[i], s.Lotto[j] = s.Lotto[j], s.Lotto[i]
+}
+
+func (s ByAsc) Less(i, j int) bool {
+	return s.Lotto[i] < s.Lotto[j]
+}
 
 func GetLottoList(count int) []LottoPack {
 	var lottoPack []LottoPack
@@ -43,6 +60,8 @@ func generateLotto() Lotto {
 			lotto = append(lotto, current.Int64()+1)
 		}
 	}
+
+	sort.Sort(ByAsc{lotto})
 
 	return lotto
 }
