@@ -9,7 +9,7 @@ type delayString struct {
 	text string
 }
 
-const DEFAULT_DELAY = 50
+const DEFAULT_DELAY = 35
 
 func execute(s rune, duration time.Duration) {
 	fmt.Printf("%c", s)

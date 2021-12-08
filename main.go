@@ -5,10 +5,17 @@ import (
 	"github.com/lafin716/lotto/view"
 )
 
-
 func main() {
-	view.Greeting()
-	lottoCount := view.AskLotto()
-	lottoList := generate.GetLottoList(lottoCount)
-	view.Print(lottoList)
+	regame := true
+
+	for regame {
+		view.Greeting()
+		lottoCount := view.AskLotto()
+		lottoList := generate.GetLottoList(lottoCount)
+		view.Print(lottoList)
+
+		regame = view.ReGame()
+	}
+
+	view.GoodBye()
 }

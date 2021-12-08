@@ -8,7 +8,7 @@ import (
 )
 
 func Greeting() {
-	showMessage("@@@@ 대 박 기 원 @@@@ \n환영합니다!\n")
+	showMessage("###### 대 박 기 원 ######\n환영합니다!\n")
 }
 
 func notNumber() {
@@ -49,6 +49,35 @@ func AskLotto() int {
 	return lottoCount
 }
 
+func ReGame() bool {
+	showMessage("로또를 다시 생성 하시겠습니까? \n1. 예\n2. 아니오\n입력 : ")
+
+	var input string
+	_, err := fmt.Scanln(&input)
+	if err != nil {
+		notChoice()
+		return ReGame()
+	}
+
+	num, err := strconv.Atoi(input)
+	if err != nil || (num != 1 && num != 2) {
+		notChoice()
+		return ReGame()
+	}
+
+	if num == 1 {
+		fmt.Printf("\n\n\n")
+		return true
+	}
+
+	return false
+}
+
+func GoodBye() {
+	showMessage("1등 당첨되길 기원합니다~ Bye Bye~\n아무 키나 입력하면 종료합니다.")
+	fmt.Scanln()
+}
+
 func Print(lottoList []generate.LottoPack) {
 	for i, lotto := range lottoList {
 		fmt.Printf("====== %d 회차 ======\n", i+1)
@@ -61,10 +90,11 @@ func Print(lottoList []generate.LottoPack) {
 
 func count(c int) {
 	var s []string
-	for i := c; i > 0; i-- {
+	for i := c; i >= 0; i-- {
 		s = append(s, strconv.Itoa(i))
 	}
 
-	count := delayString{text: strings.Join(s, "")}
-	count.showLine(1000)
+	showMessage("카운트 다운 : ")
+	showMessageWithTime(strings.Join(s, ".."), 300)
+	fmt.Println()
 }
